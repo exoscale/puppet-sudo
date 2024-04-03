@@ -99,7 +99,9 @@ define sudo::conf (
       $lines = join($content, "\n")
       $content_real = "# This file is managed by Puppet; changes may be overwritten\n${lines}\n"
     } else {
-      $content_real = "# This file is managed by Puppet; changes may be overwritten\n${content}\n"
+      # let's avoid diffs while migrating from the old to the new version
+      # $content_real = "# This file is managed by Puppet; changes may be overwritten\n${content}\n"
+      $content_real = "${content}\n"
     }
   } elsif $template != undef {
     $content_real = template($template)
